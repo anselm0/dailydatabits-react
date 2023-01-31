@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import App from './App';
 
 import reportWebVitals from './reportWebVitals';
@@ -7,11 +9,38 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 // Importing the Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NoPage from './pages/NoPage';
+import Blog from './components/Blog';
+import Contact from './pages/Contact';
+import { BlogsLayout } from './components/BlogsLayout';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App/>,
+    errorElement: <NoPage />,
+    children: [
+      {
+        path: "blogs/",
+        element: <BlogsLayout/>
+      },
+      {
+        path: "blogs/:blogId",
+        element: <Blog/>
+      },
+      {
+        path: "contact/",
+        element: <Contact/>
+      }
+    ],
+  },
+  
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

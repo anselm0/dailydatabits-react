@@ -3,7 +3,9 @@ import Container from 'react-bootstrap/Container';
 
 import Header from "./components/Header";
 import Home from "./pages/Home";
-import Blogs from "./pages/Blogs";
+import { BlogsLayout } from "./components/BlogsLayout";
+import BlogList from "./pages/BlogList";
+import Blog from "./components/Blog";
 import Contact from "./pages/Contact";
 import NoPage from "./pages/NoPage";
 
@@ -18,8 +20,11 @@ function App() {
     <Header />
       <Routes>
           <Route index element={<Home />} />
-          <Route path="blogs" element={<Blogs />} />
-          <Route path="contact" element={<Contact />} />
+          <Route path="/blogs" element={<BlogsLayout />}>
+            <Route index element={<BlogList />} />
+            <Route path=":id" element={<Blog />} />
+          </Route>
+          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} />
       </Routes>
       </Container>
